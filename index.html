@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Идеальная свадьба | Каталог специалистов</title>
+    <!-- Подключаем очень элегантные шрифты: Cormorant Garamond (с засечками) и Montserrat (без) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ОБЩИЙ ФОН --- */
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-image: url('/static/images/zastavka.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0; padding: 0; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #4a4a4a;
+        }
+
+        /* --- ГЛАВНАЯ КАРТОЧКА (Эффект стекла) --- */
+        .main-container {
+            background: rgba(255, 255, 255, 0.75); /* Более прозрачный белый */
+            padding: 60px 50px;
+            border-radius: 2px; /* Острые углы смотрятся дороже, но можно сделать 15px для мягкости */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            text-align: center;
+            max-width: 850px;
+            width: 90%;
+            backdrop-filter: blur(12px); /* Сильное размытие фона */
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            animation: fadeIn 1.2s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- ТИПОГРАФИКА --- */
+        .icon-top { font-size: 2em; color: #d4af37; margin-bottom: 10px; display: block; }
+
+        h1 { 
+            font-family: 'Cormorant Garamond', serif; 
+            color: #333; 
+            font-size: 4.2em; 
+            font-weight: 400;
+            margin: 0 0 5px 0; 
+            line-height: 1.1;
+            letter-spacing: 1px;
+        }
+        
+        p.subtitle { 
+            font-family: 'Cormorant Garamond', serif; 
+            color: #777; 
+            font-size: 1.4em; 
+            font-style: italic; 
+            margin-bottom: 40px; 
+            font-weight: 400;
+        }
+
+        /* --- ПОИСК --- */
+        .search-box { 
+            display: flex; justify-content: center; margin-bottom: 40px; width: 100%; 
+            max-width: 600px; margin-left: auto; margin-right: auto;
+        }
+        
+        .search-input { 
+            padding: 15px 25px; font-size: 1em; width: 65%; 
+            border: 1px solid #ddd; border-right: none; 
+            border-radius: 30px 0 0 30px; 
+            outline: none; transition: 0.3s; background: rgba(255,255,255,0.9);
+            font-family: 'Montserrat', sans-serif;
+        }
+        .search-input:focus { border-color: #d4af37; }
+        
+        .search-btn { 
+            padding: 15px 35px; font-size: 1em; font-weight: 500; 
+            background-color: #d4af37; color: white; 
+            border: 1px solid #d4af37; border-radius: 0 30px 30px 0; 
+            cursor: pointer; transition: 0.3s; letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .search-btn:hover { background-color: #b8860b; border-color: #b8860b; }
+
+        /* --- КАТЕГОРИИ --- */
+        .categories-title { 
+            font-family: 'Cormorant Garamond', serif; 
+            color: #888; font-size: 1.3em; 
+            margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;
+        }
+        
+        .categories { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 40px; }
+        
+        .category-card {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.6); border-radius: 50%; padding: 10px; width: 90px; height: 90px;
+            text-decoration: none; color: #555; border: 1px solid transparent;
+            transition: 0.3s; 
+        }
+        .category-card:hover { 
+            transform: translateY(-3px); 
+            border-color: #d4af37; 
+            background: white;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15); 
+            color: #b8860b; 
+        }
+        .category-icon { font-size: 1.8em; margin-bottom: 5px; }
+        .category-name { font-size: 0.75em; font-weight: 500; text-align: center; line-height: 1.1;}
+
+        /* --- ГОРОДА --- */
+        .city-list { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; 
+            max-height: 150px; overflow-y: auto; padding: 5px; margin-bottom: 30px;
+        }
+        .city-list::-webkit-scrollbar { width: 4px; }
+        .city-list::-webkit-scrollbar-thumb { background-color: #d4af37; border-radius: 10px; }
+        
+        .city-btn { 
+            background-color: transparent; border: 1px solid #ddd; color: #666; 
+            padding: 8px 16px; font-size: 0.85em; text-decoration: none; border-radius: 20px; 
+            transition: all 0.3s ease; 
+        }
+        .city-btn:hover { 
+            border-color: #d4af37; color: #b8860b; background-color: white; 
+        }
+
+        /* --- БЛОК РЕГИСТРАЦИИ --- */
+        .register-section { margin-top: 20px; padding-top: 30px; border-top: 1px solid rgba(0,0,0,0.05); }
+        .register-section p { color: #888; font-size: 0.85em; margin-bottom: 15px; font-weight: 300; }
+        .register-btn { 
+            display: inline-block; background-color: transparent; color: #333; 
+            padding: 12px 30px; border: 1px solid #333; border-radius: 30px; 
+            text-decoration: none; font-weight: 400; font-size: 0.9em; transition: 0.3s; 
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+        .register-btn:hover { background-color: #333; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <span class="icon-top">💍</span>
+        
+        <h1>Идеальная свадьба</h1>
+        <p class="subtitle">Воплотим вашу мечту в реальность</p>
+        
+        <div class="search-box">
+            <form action="/" method="GET" style="display:flex; width:100%; justify-content:center;">
+                <input type="text" name="search" class="search-input" placeholder="Введите название города..." value="{{ search_query }}">
+                <button type="submit" class="search-btn">Найти</button>
+            </form>
+        </div>
+
+        <div class="categories-title">Категории</div>
+        <div class="categories">
+            <a href="/search?category=Банкетный зал" class="category-card">
+                <span class="category-icon">🏛️</span><span class="category-name">Залы</span>
+            </a>
+            <a href="/search?category=Фотограф" class="category-card">
+                <span class="category-icon">📸</span><span class="category-name">Фотографы</span>
+            </a>
+            <a href="/search?category=Ведущий" class="category-card">
+                <span class="category-icon">🎤</span><span class="category-name">Ведущие</span>
+            </a>
+            <a href="/search?category=Видеограф" class="category-card">
+                <span class="category-icon">🎥</span><span class="category-name">Видеографы</span>
+            </a>
+            <a href="/search?category=Декоратор" class="category-card">
+                <span class="category-icon">💐</span><span class="category-name">Декор</span>
+            </a>
+            <a href="/search?category=Свет и звук" class="category-card">
+                <span class="category-icon">🔊</span><span class="category-name">Свет/Звук</span>
+            </a>
+        </div>
+
+        <div class="city-list">
+            {% for city in cities %}
+                <a href="/city/{{ city['name'] }}" class="city-btn">{{ city['name'] }}</a>
+            {% else %}
+                <p style="color: #888; font-style: italic; width: 100%;">Город не найден. Попробуйте изменить запрос.</p>
+            {% endfor %}
+        </div>
+        
+        <div class="register-section">
+            <p>Вы специалист и хотите попасть в наш каталог?</p>
+        <!-- БЛОК РЕКЛАМЫ -->
+        <div style="margin-top: 30px; padding: 20px; border: 2px dashed #ccc; border-radius: 10px; background: rgba(255,255,255,0.5); text-align: center;">
+            <p style="color: #999; font-size: 0.8em; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Реклама</p>
+            <p style="color: #aaa; font-size: 0.9em; margin-top: 5px;">Здесь может быть ваша реклама (баннер 728x90)</p>
+        </div>
+            <a href="/register" class="register-btn">Добавить себя</a>
+        </div>
+    </div>
+
+</body>
+</html>

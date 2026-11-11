@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить специалиста</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background: linear-gradient(135deg, #fdfbf7 0%, #f4ecd8 100%); margin: 0; padding: 40px 20px; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .form-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        h1 { font-family: 'Playfair Display', serif; color: #b8860b; text-align: center; margin-top: 0; }
+        label { display: block; margin-top: 15px; color: #555; font-weight: 500; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+        textarea { resize: vertical; height: 80px; }
+        button { margin-top: 25px; width: 100%; background-color: #d4af37; color: white; border: none; padding: 15px; font-size: 1.1em; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button:hover { background-color: #b8860b; }
+        .back-link { display: block; text-align: center; margin-top: 15px; color: #888; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Стать участником</h1>
+        <form method="POST" action="/register">
+            
+            <label>Город:</label>
+            <select name="city" required>
+                {% for city in cities %}
+                    <option value="{{ city['name'] }}">{{ city['name'] }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Категория:</label>
+            <select name="category" required>
+                <option value="Банкетный зал">Банкетный зал</option>
+                <option value="Фотограф">Фотограф</option>
+                <option value="Ведущий">Ведущий</option>
+                <option value="Свет и звук">Свет и звук</option>
+                <option value="Декоратор">Декоратор</option>
+                <option value="Видеограф">Видеограф</option>
+                <option value="Реэлмейкер (Рил мейкер)">Реэлмейкер (Рил мейкер)</option>
+            </select>
+
+            <label>Ваше имя / Название:</label>
+            <input type="text" name="name" required placeholder="Например: Иван Иванов">
+
+            <label>Цена (руб.):</label>
+            <input type="text" name="price" required placeholder="Например: от 50 000 руб.">
+
+            <label>Описание:</label>
+            <textarea name="description" required placeholder="Расскажите о себе..."></textarea>
+
+            <!-- НОВОЕ ПОЛЕ: КОНТАКТЫ -->
+            <label>Ваш телефон или ссылка на WhatsApp/Telegram:</label>
+            <input type="text" name="contact" placeholder="Например: +7 999 123-45-67 или https://wa.me/79991234567">
+            <small style="color: #888; display: block; margin-top: 5px;">Клиенты смогут связаться с вами напрямую.</small>
+
+            <label>Имя файла с фото:</label>
+            <input type="text" name="image_name" placeholder="Например: my_photo.jpg">
+            <small style="color: #888; display: block; margin-top: 5px;">* Загрузите фото в папку <b>static/images</b> и напишите его имя здесь.</small>
+
+            <button type="submit">Добавить меня на сайт</button>
+        </form>
+        <a href="/" class="back-link">← На главную</a>
+    </div>
+</body>
+</html>

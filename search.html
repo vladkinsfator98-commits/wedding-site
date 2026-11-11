@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск: {{ category }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background: linear-gradient(135deg, #fdfbf7 0%, #f4ecd8 100%); margin: 0; padding: 40px 20px; min-height: 100vh; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #888; text-decoration: none; font-size: 1em; background: white; padding: 10px 20px; border-radius: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .back-link:hover { color: #b8860b; }
+        h1 { font-family: 'Playfair Display', serif; color: #b8860b; text-align: center; font-size: 2.5em; margin-bottom: 30px; }
+        
+        .vendor-card { background: rgba(255, 255, 255, 0.95); border-radius: 15px; padding: 25px; margin-bottom: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border-left: 6px solid #d4af37; display: flex; gap: 25px; align-items: flex-start; }
+        .vendor-img { width: 150px; height: 150px; object-fit: cover; border-radius: 12px; flex-shrink: 0; background-color: #eee;}
+        .vendor-info { flex-grow: 1; }
+        .vendor-name { font-family: 'Playfair Display', serif; font-size: 1.6em; font-weight: 700; color: #333; margin: 0 0 5px 0; }
+        .vendor-price { color: #b8860b; font-weight: 500; font-size: 1.2em; margin: 0 0 10px 0; background: #fdfbf7; display: inline-block; padding: 5px 15px; border-radius: 20px; }
+        .vendor-desc { color: #555; margin: 0 0 15px 0; line-height: 1.6; font-weight: 300; }
+        .vendor-city { font-size: 0.9em; color: #888; margin-bottom: 10px; display: block; }
+        .btn-order { background-color: #d4af37; color: white; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-size: 0.95em; font-weight: 500; text-decoration: none; display: inline-block;}
+        .btn-order:hover { background-color: #b8860b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← На главную</a>
+        <h1>Результаты поиска: {{ category }}</h1>
+
+        {% if vendors %}
+            {% for vendor in vendors %}
+                <div class="vendor-card">
+                    {% if vendor.image and vendor.image.startswith('http') %}
+                        <img src="{{ vendor.image }}" class="vendor-img" alt="{{ vendor.name }}">
+                    {% elif vendor.image %}
+                        <img src="/static/images/{{ vendor.image }}" class="vendor-img" alt="{{ vendor.name }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/150?text=Фото+нет" class="vendor-img">
+                    {% endif %}
+                    
+                    <div class="vendor-info">
+                        <span class="vendor-city">📍 {{ vendor.city }}</span>
+                        <p class="vendor-name">{{ vendor.name }}</p>
+                        <p class="vendor-price">{{ vendor.price }}</p>
+                        <p class="vendor-desc">{{ vendor.description }}</p>
+                        <a href="/city/{{ vendor.city }}" class="btn-order">Перейти в город</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center; color: #888; font-style: italic; margin-top: 50px;">В этой категории пока нет специалистов.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
